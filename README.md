@@ -20,3 +20,30 @@ device using avrdude.
 Basically, we will implement everything that the Arduino IDE does for you in
 nice comforting command line.  Well, most everything anyway.  The parts that
 you wish you had when you see a .pde file and think "once more into the breach."
+
+Instructions
+------------
+
+```arduino-gf''' is a command line tool which has a handful of features that
+are not present outside of the Arduino IDE. 
+
+Arduino-GF is best used as part of a standard cmake- or make-based build
+chain. Example make and cmake files are included in the examples/ directory.
+
+### Preprocessing #
+
+The biggest problem of developing outside of Arduino is that there is no way
+to transition between between Processing and C++ which avr-g++ can eat. 
+
+```arduino-gf $file.pde``` will turn a pre-1.0 Arduino file in to a cpp
+which can be then fed in to avr-g++ using your build chain.
+
+```arduino-gf $file.ino``` will turn a 1.0 or newer Arduino file in to a
+cpp file which can ben then fed in to avr-g++ using your build chain.
+
+#### Options #
+
+```--out $dir```: output the source files to $dir.
+
+
+
