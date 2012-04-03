@@ -1,0 +1,100 @@
+#!/bin/env ruby
+
+class ArduinoGF
+  class Init
+    #
+    # Takes an array of files and sorts them in to a type hash for
+    # pre-processing.
+    #
+    def getfiles args
+      files = { 'pde' : [],
+                'ino' : [],
+                'cpp' : []}
+
+      args.each do |file|
+
+        if File.exists?(file)
+
+          begin 
+            files[File.extname file] = file
+          rescue
+            puts "Ignoring invalid file, #{ file }"
+          end
+
+        end
+
+      end
+
+    end
+  end
+
+  class Preprocessor
+    @files = {}
+
+    #
+    # Accessor methods for the files object
+    #
+    def files
+      return @files
+    end
+
+    def files= files
+      @files = files
+    end
+
+    #
+    # This is the method where the magic happens.
+    #
+    # It turns the PDE and INO files in to their CPP equivalents.
+    # Whether or not this uses 1.0 or pre-1.0 Arduino style preprocessing is
+    # dependant on the system version of Arduino (what version of the libraries
+    # we have to work with.
+    #
+    def preprocess
+      if Arduino::arduino_version == "1.0"
+        preprocess_10
+      else
+        preprocess_00
+      end
+    end
+
+    private
+    
+    def preprocess_10
+      puts "Not yet implemented"
+    end
+
+    def preprocess_00
+      puts "Not yet implemented"
+    end
+  end
+
+  class Arduino
+    #
+    # This method returns the version of a given ARduino as a string.
+    #
+    def arduino_version arduino_location
+      location = find_arduino
+      puts "FIXME TODO"
+    end
+
+    #
+    # This method returns the location of the system Arduino as a string.
+    #
+    def find_arduino
+      "FIXME TODO"
+    end
+
+
+  end
+
+end
+
+#
+# Execution starts here
+#
+files = ArduinoGF::Init.getfiles ARGV
+
+pp = ArduinoGF::Preprocessor.new
+pp.files = files
+pp.preprocess
